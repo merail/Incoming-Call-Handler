@@ -46,26 +46,21 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
                     if (phoneNumber != null)
                         info = DatabaseRepository.getInstance(context.getApplicationContext()).getInfo(phoneNumber);
 
-                    LayoutInflater inflater = (LayoutInflater) context
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View popUp = inflater.inflate(R.layout.popup_window, null);
-
-                    int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    boolean focusable = true;
-                    final PopupWindow popupWindow = new PopupWindow(popUp, width, height, focusable);
-
-                    View rootView = popUp.findViewById(android.R.id.content).getRootView();
-                    popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+//                    LayoutInflater inflater = (LayoutInflater) context
+//                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                    View popUp = inflater.inflate(R.layout.popup_window, null);
+//
+//                    int width = LinearLayout.LayoutParams.MATCH_PARENT;
+//                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//                    boolean focusable = true;
+//                    final PopupWindow popupWindow = new PopupWindow(popUp, width, height, focusable);
+//
+//                    View rootView = popUp.findViewById(android.R.id.content).getRootView();
+//                    popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
                     showToast(context, phoneNumber + " " + info + " incoming call");
                 }
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     showToast(context, phoneNumber + " call finished");
-                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                    if (linearLayout1 != null) {
-                        wm.removeView(linearLayout1);
-                        linearLayout1 = null;
-                    }
                 }
 
 //                if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
