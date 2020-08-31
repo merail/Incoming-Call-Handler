@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        Log.d(TAG, "onCreate: ");
 //        DatabaseRepository repository = new DatabaseRepository(getApplication());
-//        repository.addNumber("+79393160294", "bulat, тут информация");
+//        repository.addNumber("+79172821249", "rail, тут информация");
 
         DatabaseRepository.getInstance(getApplication());
     }

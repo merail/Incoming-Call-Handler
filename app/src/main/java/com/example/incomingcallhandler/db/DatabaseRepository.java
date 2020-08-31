@@ -16,7 +16,7 @@ public class DatabaseRepository {
         return instance;
     }
 
-    private DatabaseRepository(Context application) {
+    public DatabaseRepository(Context application) {
         dbHelper = DbHelper.getInstance(application.getApplicationContext());
     }
 
