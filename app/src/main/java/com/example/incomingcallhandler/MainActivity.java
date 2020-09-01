@@ -1,13 +1,19 @@
 package com.example.incomingcallhandler;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.example.incomingcallhandler.db.DatabaseRepository;
@@ -17,10 +23,15 @@ public class MainActivity extends AppCompatActivity {
     public static final int MY_PERMISSIONS_REQUEST_PROCESS_OUTGOING_CALLS = 1;
     public static final String TAG = "phoneLLL";
 
+    public static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 5469;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkPermission();
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_PHONE_STATE)
@@ -41,5 +52,30 @@ public class MainActivity extends AppCompatActivity {
         DatabaseRepository.getInstance(getApplication());
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (!Settings.canDrawOverlays(this)) {
+                // You don't have permission
+                checkPermission();
+                Log.d("ффффффф", "фффффф");
+            } else {
+                Log.d("bbbbbbbb", "bbbbbbb");
+                // Do as per your logic
+            }
+        }
+    }
+
+    public void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
 }
