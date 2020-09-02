@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
     private static WindowManager windowManager;
     private static ViewGroup windowLayout;
     private int mWindowTypeParameter;
+
 
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override

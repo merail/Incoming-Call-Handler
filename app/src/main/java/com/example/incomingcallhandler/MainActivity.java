@@ -7,12 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -50,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
 //        repository.addNumber("+79172821249", "rail, тут информация");
 
         DatabaseRepository.getInstance(getApplication());
-    }
+//        if (!isMyServiceRunning())
+//            startService(new Intent(this, IncomingCallHandlerService.class));
+        }
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -77,5 +80,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
             }
         }
+    }
+
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (IncomingCallHandlerService.class.getName().equals(service.service.getClassName())) {
+                Log.d (IncomingCallHandlerService.TAG, "running");
+                return true;
+            }
+        }
+        Log.d (IncomingCallHandlerService.TAG, "not running");
+        return false;
     }
 }
