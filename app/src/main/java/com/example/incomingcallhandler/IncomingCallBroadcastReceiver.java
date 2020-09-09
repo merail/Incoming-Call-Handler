@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
     private static WindowManager windowManager;
+    @SuppressLint("StaticFieldLeak")
     private static ViewGroup windowLayout;
     private int mWindowTypeParameter;
 
@@ -26,7 +26,6 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(final Context context, Intent intent) {
-        Toast.makeText(context, "Callcalcalclalca", Toast.LENGTH_LONG).show();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mWindowTypeParameter = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
@@ -55,7 +54,7 @@ public class IncomingCallBroadcastReceiver extends BroadcastReceiver {
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 mWindowTypeParameter,
-                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                         WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
